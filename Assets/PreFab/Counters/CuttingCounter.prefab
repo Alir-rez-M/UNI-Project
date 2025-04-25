@@ -248,7 +248,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnPoint: {fileID: 2258821152759178913}
-  slicedObjects: []
+  slicedObjects:
+  - {fileID: 11400000, guid: 444f4f1d509fcda4ba146f9cabc17798, type: 2}
+  - {fileID: 11400000, guid: a80e6054423de64439e8dddc8caf35c3, type: 2}
+  - {fileID: 11400000, guid: f6c2d80072b469b4093e6096554ce3eb, type: 2}
 --- !u!4 &8141594163972234339 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9124915157092573864, guid: 6b941fd953f0fb543823d2cbfe488de1,
