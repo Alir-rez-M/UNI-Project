@@ -13,10 +13,7 @@ public class ClearCounter : BaseCounter
         {
             if (player.HasKitchenObject())
             {
-                if (!HasKitchenObject())
-                {
-                    player.GetKitchenObject().SetClearCounter(this);
-                }
+                player.GetKitchenObject().SetClearCounter(this);    
 
             }
         }
@@ -28,13 +25,19 @@ public class ClearCounter : BaseCounter
                 {
 
                     Debug.Log("Has Object");
-                    if (player.GetKitchenObject() is PlateKitchenObject)
+                    if (player.GetKitchenObject().TryGetPlateKitchenObject(out PlateKitchenObject plateKitchenObject))
                     {
-                        PlateKitchenObject plateKitchenObject = player.GetKitchenObject() as PlateKitchenObject;
                         if (plateKitchenObject.TryGetKitchenObjectSO(GetKitchenObject().GetKitchenObjectSO()))
                         {
                             GetKitchenObject().DestroyObject();
                         }
+                    }
+                    if (GetKitchenObject().TryGetPlateKitchenObject(out plateKitchenObject))
+                    {
+                        if (plateKitchenObject.TryGetKitchenObjectSO(player.GetKitchenObject().GetKitchenObjectSO()))
+                        {
+                            player.GetKitchenObject().DestroyObject();
+                        }   
                     }
                 }
                 else

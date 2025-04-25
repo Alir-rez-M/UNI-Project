@@ -45,19 +45,46 @@ public class StoveCounter : BaseCounter ,  IProgressBar
         {
             if (HasKitchenObject())
             {
-                GetKitchenObject().SetClearCounter(player);
-                friedMeatTime = 0;
-                burnedMeatTime = 0;
-                StopAllCoroutines();
-                mode = CookState.Idle;
-                OnCookingVisual?.Invoke(this, new OnCookingVisualEventArgs
+                if (player.HasKitchenObject())
                 {
-                    state = CookState.Idle,
-                });
-                OnProgressBar?.Invoke(this, new IProgressBar.OnProgressBarEventArgs
+                    if(player.GetKitchenObject().TryGetPlateKitchenObject(out PlateKitchenObject plateKitchenObject))
+                    {
+                        Debug.Log("HIII");
+                        if (plateKitchenObject.TryGetKitchenObjectSO(GetKitchenObject().GetKitchenObjectSO()))
+                        {
+                            GetKitchenObject().DestroyObject();
+                            friedMeatTime = 0;
+                            burnedMeatTime = 0;
+                            StopAllCoroutines();
+                            mode = CookState.Idle;
+                            OnCookingVisual?.Invoke(this, new OnCookingVisualEventArgs
+                            {
+                                state = CookState.Idle,
+                            });
+                            OnProgressBar?.Invoke(this, new IProgressBar.OnProgressBarEventArgs
+                            {
+                                progress = 0f
+                            });
+                        }
+                    }
+                }
+                else
                 {
-                    progress = 0f
-                });
+                    GetKitchenObject().SetClearCounter(player);
+                    friedMeatTime = 0;
+                    burnedMeatTime = 0;
+                    StopAllCoroutines();
+                    mode = CookState.Idle;
+                    OnCookingVisual?.Invoke(this, new OnCookingVisualEventArgs
+                    {
+                        state = CookState.Idle,
+                    });
+                    OnProgressBar?.Invoke(this, new IProgressBar.OnProgressBarEventArgs
+                    {
+                        progress = 0f
+                    });
+                }
+                
 
             }
         }
